@@ -1,0 +1,82 @@
+-- Import & Export --
+Import xml data
+POST /import
+{ data: "<data><item id="1">Test</item></data>" }
+< 200
+< Content-Type: application/json
+{ return: "/id/1" }
+
+Export xml data
+GET /export/id/1
+< 200
+< Content-Type: application/json
+{ items: [
+    { "data":"<data><item id="1">Test</item></data>" }
+]}
+
+-- Security --
+
+Autorize with username and password
+POST /auth
+{ user: "test", pass: "test" }
+< 200
+< Content-Type: application/json
+{ status:"ok", token: "fafdadsfsdafdasfdsa" }
+
+-- Work with users --
+Create new user
+POST /user/create
+{ username:"clovek1" }
+< 200
+< Content-Type: application/json
+{ "iduser": 1, "password": "sdkfjkldlkadjfklsdfksd233" } 
+
+Delete user by id
+DELETE /user/delete/iduser/1
+< 200
+< Content-Type: application/json
+{ status: "ok" }
+
+Update user data (not username?)
+POST /user/update/iduser/1
+{ fullname:"Clonek Cloveci" }
+< 200
+< Content-Type: application/json
+{ status: "ok" }
+
+Get user data for iduser
+GET /user/iduser/1
+< 200
+< Content-Type: application/json
+{ "iduser": 1, "username": "clovek1", "fullname": "Clonek Cloveci" }
+
+-- Courses --
+
+Create new course
+POST /course/create
+{ "name": "Kurz prvni pomoci", 
+  "organizer": "Spolecnost s.r.o",
+  "lector": "Pavel Pavel",
+  "dateFrom": "2012-02-01 09:00", 
+  "dateTo": "2012-02-01 18:00", 
+  "price": "0", 
+  "description": "Some text" 
+  "address": {
+       "city": "Praha",
+       "coords": {
+           "lat":50.102864947908,
+           "lon":14.456887168481           
+       },
+       "country": "Česká republika",
+       "district": "Hlavní město Praha",
+       "label": "Jankovcova 1569/2c, 170 00 Praha, Česká republika",
+       "number": "1569/2c",
+       "region": "Hlavní město Praha",
+       "street": "Jankovcova",
+       "ward": "Holešovice",
+       "zip": "170 00"
+   }
+}
+< 200
+< Content-Type: application/json
+{ status: "ok" }
